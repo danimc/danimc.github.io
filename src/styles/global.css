@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/* Apfel Grotezk for display, Ronzino for text. Both by Collletttivo, OFL (licenses in /fonts). */
+@font-face { font-family: "Apfel Grotezk"; src: url("/fonts/apfel-grotezk-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Apfel Grotezk"; src: url("/fonts/apfel-grotezk-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Apfel Grotezk"; src: url("/fonts/apfel-grotezk-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Ronzino"; src: url("/fonts/ronzino-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Ronzino"; src: url("/fonts/ronzino-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Ronzino"; src: url("/fonts/ronzino-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+@theme {
+  --font-display: "Apfel Grotezk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Ronzino", ui-sans-serif, system-ui, sans-serif;
+
+  /* Flat neutrals, slightly warm so nothing is pure black or white. Dark bg #131209 is on the skill's list (B4). */
+  --color-bg: #fbfaf7;
+  --color-panel: #f3f1ec;
+  --color-raised: #e9e6df;
+  --color-line: #e0ddd5;
+  --color-fg: #16150f;
+  --color-muted: #66645c;
+  --color-accent: #1d7a4e;
+  --color-live: #1d7a4e;
+  /* Body copy: ink a notch softer than headings; muted is only for metadata */
+  --color-soft: color-mix(in oklab, var(--color-fg) 84%, var(--color-bg));
+
+  --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #131209;
+    --color-panel: #1c1b13;
+    --color-raised: #27261d;
+    --color-line: #323127;
+    --color-fg: #f1efe8;
+    --color-muted: #a29f94;
+    --color-accent: #5fd08f;
+    --color-live: #5fd08f;
+  }
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  color-scheme: light dark;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+body { font-family: var(--font-sans); }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; }
+p, li, dd { text-wrap: pretty; }
+
+::selection { background: var(--color-fg); color: var(--color-bg); }
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Scroll reveal: fade up with blur, toggled by IntersectionObserver.
+   .js is added by the same inline script that runs the observer (Base.astro), so content never stays hidden if scripts fail. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(2rem);
+  filter: blur(8px);
+  transition: opacity 0.9s var(--ease-fluid), transform 0.9s var(--ease-fluid), filter 0.9s var(--ease-fluid);
+  transition-delay: var(--delay, 0ms);
+}
+.js .reveal.is-in { opacity: 1; transform: none; filter: none; }
+
+/* Above the fold: same motion in pure CSS, no observer needed */
+.enter { animation: enter 0.9s var(--ease-fluid) both; animation-delay: var(--delay, 0ms); }
+@keyframes enter { from { opacity: 0; transform: translateY(2rem); filter: blur(8px); } }
+
+/* Print or "Save as PDF": everything visible, nothing interactive, the long bio included */
+@media print {
+  .js .reveal, .enter { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; }
+  [data-long] { display: block !important; }
+  aside { position: static !important; height: auto !important; }
+  nav, [data-len-group], fieldset, form button, [data-copy] { display: none !important; }
+  tr[data-tags] { display: table-row !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js .reveal { opacity: 1; transform: none; filter: none; }
+}

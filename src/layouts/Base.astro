@@ -1,0 +1,125 @@
+---
+import '../styles/global.css';
+import { person } from '../data/cv';
+
+interface Props { title?: string; description?: string }
+const {
+  title = `${person.name} · Senior Full Stack Engineer`,
+  description = 'Senior full stack engineer in Guadalajara. Eleven years of TypeScript and Python across web, mobile, APIs and AI agent systems.',
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+const mailto = `mailto:${person.email}?subject=${encodeURIComponent('Role for Daniel Mora')}`;
+const nav = [
+  { href: '/#about', label: 'About' },
+  { href: '/#experience', label: 'Experience' },
+  { href: '/#skills', label: 'Skills' },
+  { href: '/#practices', label: 'How I work' },
+  { href: '/#contact', label: 'Contact' },
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/apfel-grotezk-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/ronzino-400.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#131209" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/og.png', canonical)} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body class="min-h-dvh">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-fg focus:px-4 focus:py-2 focus:text-bg">Skip to content</a>
+
+    <div class="mx-auto grid max-w-6xl gap-16 px-6 lg:grid-cols-[22rem_1fr] lg:gap-24 lg:px-12">
+      <!-- Rail: name, role, availability and contact never scroll away on desktop -->
+      <aside class="pt-12 lg:sticky lg:top-0 lg:flex lg:h-dvh lg:flex-col lg:overflow-y-auto lg:py-16">
+        <a href="/" class="enter block">
+          <h1 class="text-6xl font-bold tracking-tight md:text-7xl">Daniel<br />Mora</h1>
+        </a>
+        <p class="enter mt-4 font-display text-xl font-medium" style="--delay:80ms">{person.role}</p>
+        <p class="enter mt-4 max-w-[34ch] text-base text-soft" style="--delay:120ms">{person.pitch}</p>
+        <p class="enter mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted" style="--delay:160ms">
+          <span><b class="font-semibold text-fg">Open</b> to remote and relocation</span>
+          <span>{person.city} · UTC−6 · <span data-clock>--:--</span></span>
+        </p>
+
+        <nav aria-label="Sections" class="mt-12 hidden lg:block">
+          <ul class="grid gap-1">
+            {nav.map((l) => (
+              <li><a href={l.href} data-nav class="toc flex items-baseline gap-4 py-1 text-sm text-muted transition-colors duration-500 ease-fluid hover:text-fg"><span aria-hidden="true"></span>{l.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+
+        <div class="enter mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 lg:mt-auto" style="--delay:200ms">
+          <a href={mailto} class="rounded-full bg-fg px-3 py-2 text-base font-semibold text-bg transition-transform duration-700 ease-fluid hover:-translate-y-0.5 active:scale-[0.98]">Email me about a role</a>
+          <!-- CV PDF returns once the aligned version is exported (no Conomi, with Go, Rust and .NET) -->
+        </div>
+        <ul class="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted">
+          <li><a class="underline decoration-line underline-offset-4 hover:text-fg" href={`mailto:${person.email}`}>{person.email}</a></li>
+          <li><a class="underline decoration-line underline-offset-4 hover:text-fg" href={person.links.linkedin} rel="me">LinkedIn</a></li>
+          <li><a class="underline decoration-line underline-offset-4 hover:text-fg" href={person.links.github} rel="me">GitHub</a></li>
+        </ul>
+      </aside>
+
+      <div class="min-w-0">
+        <main id="main" class="lg:pt-16"><slot /></main>
+        <footer class="border-t border-line py-8 text-sm text-muted">
+          <p>© {new Date().getFullYear()} {person.fullName}. No cookies, no analytics.</p>
+        </footer>
+      </div>
+    </div>
+
+    <style>
+      .toc span { display: inline-block; width: 2rem; height: 1px; background: currentColor; transition: width 0.7s var(--ease-fluid); }
+      .toc[aria-current='true'] { color: var(--color-fg); }
+      .toc[aria-current='true'] span { width: 4rem; }
+    </style>
+
+    <script is:inline>
+      // Reveal on scroll. Inline on purpose: the class that hides .reveal and the observer that shows it
+      // ship together, so a failed bundle can never leave content invisible.
+      if ('IntersectionObserver' in window) {
+        document.documentElement.classList.add('js');
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        }, { rootMargin: '0px 0px -10% 0px' });
+        document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+      }
+    </script>
+
+    <script>
+      import { person } from '../data/cv';
+
+      // Current section in the rail: whichever section holds the middle of the viewport.
+      // Re-checked from scratch on every observer tick, so fast jumps never leave a stale highlight.
+      const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-nav]')];
+      const sections = links.map((l) => document.querySelector<HTMLElement>(l.hash)).filter(Boolean) as HTMLElement[];
+      const mark = () => {
+        const mid = innerHeight / 2;
+        // ponytail: the first section counts as current near the top, it is too short to reach the middle
+        const cur = scrollY < 80 ? sections[0] : sections.find((s) => { const r = s.getBoundingClientRect(); return r.top <= mid && r.bottom > mid; });
+        if (cur) links.forEach((l) => l.setAttribute('aria-current', String(l.hash === `#${cur.id}`)));
+      };
+      const spy = new IntersectionObserver(mark, { rootMargin: '-45% 0px -45% 0px' });
+      sections.forEach((s) => spy.observe(s));
+
+      // Live clock in Guadalajara
+      const clock = document.querySelector('[data-clock]');
+      const fmtTime = new Intl.DateTimeFormat('en-US', { timeZone: person.timeZone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+      const tick = () => { if (clock) clock.textContent = fmtTime.format(new Date()); };
+      tick();
+      setInterval(tick, 15_000);
+    </script>
+  </body>
+</html>

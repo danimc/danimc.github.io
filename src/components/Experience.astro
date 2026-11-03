@@ -1,0 +1,29 @@
+---
+import { jobs } from '../data/cv';
+const label = 'flex items-baseline gap-3 border-b border-line pb-3 text-sm font-bold';
+---
+<section id="experience" class="scroll-mt-16 pt-16">
+  <h2 class={label}>Experience <span class="font-sans font-normal text-muted">11 years</span></h2>
+  <ol>
+    {jobs.map((j, i) => (<>
+      <li class="reveal grid gap-x-6 gap-y-2 border-b border-line py-6 sm:grid-cols-[3.5rem_1fr]">
+        <span class="font-display text-sm text-muted">{`{${String(i + 1).padStart(2, '0')}}`}</span>
+        <div>
+          <h3 class="text-2xl font-bold tracking-tight">{j.title}</h3>
+          <p class="mt-1 text-sm text-muted">{j.company} · {j.place} · {j.from} – {j.to}</p>
+          <dl class="mt-4 grid grid-cols-[4.5rem_1fr] items-baseline gap-x-4 gap-y-2 text-base">
+            <dt class="text-sm text-muted">Scope</dt><dd class="text-soft">{j.scope}</dd>
+            {j.proof && <><dt class="text-sm text-muted">Proof</dt><dd>{j.proof}</dd></>}
+            {j.stack && <><dt class="text-sm text-muted">Stack</dt><dd class="text-soft">{j.stack}</dd></>}
+          </dl>
+        </div>
+      </li>
+      {j.gapAfter && (
+        <li class="reveal grid gap-x-6 border-b border-line py-4 text-sm text-muted sm:grid-cols-[3.5rem_1fr]">
+          <span aria-hidden="true">·</span>
+          <p>{j.gapAfter.from} – {j.gapAfter.to} · {j.gapAfter.what}</p>
+        </li>
+      )}
+    </>))}
+  </ol>
+</section>

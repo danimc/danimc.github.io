@@ -1,0 +1,27 @@
+---
+import { about } from '../data/cv';
+// Section label shared by every section in the main column
+const label = 'flex items-baseline gap-3 border-b border-line pb-3 text-sm font-bold';
+---
+<section id="about" class="scroll-mt-16 pt-12 lg:pt-0">
+  <h2 class={label}>About</h2>
+  <div data-bio class="mt-6">
+    <p class="enter text-2xl text-soft" style="--delay:120ms">{about.short}</p>
+    <p data-long class="mt-4 hidden text-2xl text-soft">{about.long}</p>
+    <div data-len-group hidden class="mt-4 inline-flex gap-1 rounded-full bg-panel p-1 text-sm" role="group" aria-label="Bio length">
+      <button type="button" data-len="short" aria-pressed="true" class="rounded-full px-3 py-1 text-muted aria-pressed:bg-bg aria-pressed:font-semibold aria-pressed:text-fg">Short</button>
+      <button type="button" data-len="long" aria-pressed="false" class="rounded-full px-3 py-1 text-muted aria-pressed:bg-bg aria-pressed:font-semibold aria-pressed:text-fg">Long</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Two lines for the recruiter, one more paragraph for the hiring manager
+  const long = document.querySelector<HTMLElement>('[data-long]')!;
+  const btns = [...document.querySelectorAll<HTMLButtonElement>('[data-len]')];
+  document.querySelector<HTMLElement>('[data-len-group]')!.hidden = false;
+  btns.forEach((b) => b.addEventListener('click', () => {
+    long.classList.toggle('hidden', b.dataset.len !== 'long');
+    btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  }));
+</script>

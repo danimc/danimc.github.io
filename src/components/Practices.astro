@@ -1,0 +1,30 @@
+---
+import { practices, education } from '../data/cv';
+const label = 'flex items-baseline gap-3 border-b border-line pb-3 text-sm font-bold';
+---
+<section id="practices" class="scroll-mt-16 pt-16">
+  <h2 class={label}>How I work</h2>
+  <ol class="mt-6 grid gap-6">
+    {practices.map((p, i) => (
+      <li class="reveal grid gap-x-6 gap-y-1 sm:grid-cols-[3.5rem_1fr]" style={`--delay:${i * 80}ms`}>
+        <span class="font-display text-sm text-muted">{`{${String(i + 1).padStart(2, '0')}}`}</span>
+        <div>
+          <h3 class="text-xl font-bold tracking-tight">{p.title}</h3>
+          <p class="mt-1 text-base text-soft">{p.how}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<section aria-labelledby="edu-title" class="pt-16">
+  <h2 id="edu-title" class={label}>Education</h2>
+  <ul>
+    {education.map((e) => (
+      <li class="grid gap-x-4 gap-y-1 border-b border-line py-3 text-base sm:grid-cols-[7.5rem_1fr]">
+        <span class="text-sm text-muted">{e.when}</span>
+        <span>{e.what}</span>
+      </li>
+    ))}
+  </ul>
+</section>
