@@ -1,0 +1,28 @@
+---
+import { work } from '../data/cv';
+---
+<section id="professional-work" class="work-section section-space" aria-labelledby="professional-work-title">
+  <div class="wrap">
+    <div class="section-heading"><h2 id="professional-work-title">Professional engineering scope</h2><p>Scope, contribution, decisions.</p></div>
+    <div class="work-layout">
+      <article class="work-feature">
+        <p class="work-context">{work[0].context}</p>
+        <h3>{work[0].title}</h3>
+        <p class="work-intro">{work[0].summary}</p>
+        <figure class="system-flow" aria-labelledby="flow-caption">
+          <ol><li><span>Product</span><strong>React UI</strong></li><li><span>Services</span><strong>Python APIs</strong></li><li><span>Execution</span><strong>Isolated runs</strong></li><li><span>Delivery</span><strong>Human review</strong></li></ol>
+          <figcaption id="flow-caption">The engineering surface: interface, API, runtime and review.</figcaption>
+        </figure>
+        <details class="work-details"><summary>Read platform engineering scope<span aria-hidden="true">+</span></summary><div class="detail-content">{work[0].details.map(d => <div><h4>{d.label}</h4><p>{d.text}</p></div>)}</div></details>
+      </article>
+      <article class="work-secondary">
+        <p class="work-context">{work[1].context}</p>
+        <h3>{work[1].title}</h3>
+        <p class="work-intro">{work[1].summary}</p>
+        <p class="work-result">{work[1].result}</p>
+        <details class="work-details"><summary>Read vision engineering scope<span aria-hidden="true">+</span></summary><div class="detail-content">{work[1].details.map(d => <div><h4>{d.label}</h4><p>{d.text}</p></div>)}</div></details>
+        <div class="mobile-proof"><p class="work-context">Mobile delivery</p><h4>From a shared codebase<br />to both app stores.</h4><p>React Native and Expo for iOS and Android, including offline behavior and store release.</p><a href="/#skill-mobile-apps">Focus mobile skills</a></div>
+      </article>
+    </div>
+  </div>
+</section>

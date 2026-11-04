@@ -1,30 +1,5 @@
 ---
 import { practices, education } from '../data/cv';
-const label = 'flex items-baseline gap-3 border-b border-line pb-3 text-sm font-bold';
 ---
-<section id="practices" class="scroll-mt-16 pt-16">
-  <h2 class={label}>How I work</h2>
-  <ol class="mt-6 grid gap-6">
-    {practices.map((p, i) => (
-      <li class="reveal grid gap-x-6 gap-y-1 sm:grid-cols-[3.5rem_1fr]" style={`--delay:${i * 80}ms`}>
-        <span class="font-display text-sm text-muted">{`{${String(i + 1).padStart(2, '0')}}`}</span>
-        <div>
-          <h3 class="text-xl font-bold tracking-tight">{p.title}</h3>
-          <p class="mt-1 text-base text-soft">{p.how}</p>
-        </div>
-      </li>
-    ))}
-  </ol>
-</section>
-
-<section aria-labelledby="edu-title" class="pt-16">
-  <h2 id="edu-title" class={label}>Education</h2>
-  <ul>
-    {education.map((e) => (
-      <li class="grid gap-x-4 gap-y-1 border-b border-line py-3 text-base sm:grid-cols-[7.5rem_1fr]">
-        <span class="text-sm text-muted">{e.when}</span>
-        <span>{e.what}</span>
-      </li>
-    ))}
-  </ul>
-</section>
+<section id="practices" class="practice-section section-space" aria-labelledby="practices-title"><div class="wrap"><div class="section-heading"><h2 id="practices-title">Engineering habits</h2></div><ol class="practice-list" data-cv-group="Engineering habits">{practices.map((p,i) => <li id={`practice-${i+1}`} data-cv-entry><span class="practice-index" aria-hidden="true">0{i+1} /</span><div><h3><a class="entry-trigger" data-entry-select href={`#practice-${i+1}`}>{p.title}<span class="entry-permalink" aria-hidden="true"></span></a></h3><p>{p.how}</p></div></li>)}</ol></div></section>
+<section class="education wrap section-space" aria-labelledby="education-title"><h2 id="education-title" class="section-label">Education</h2><ul data-cv-group="Education">{education.map((e,i) => <li id={`education-${i+1}`} data-cv-entry><span>{e.when}</span><p><a class="entry-trigger" data-entry-select href={`#education-${i+1}`}>{e.what}<span class="entry-permalink" aria-hidden="true"></span></a></p></li>)}</ul></section>

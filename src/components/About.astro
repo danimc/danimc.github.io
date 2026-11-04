@@ -1,27 +1,14 @@
 ---
-import { about } from '../data/cv';
-// Section label shared by every section in the main column
-const label = 'flex items-baseline gap-3 border-b border-line pb-3 text-sm font-bold';
+import screen from '../assets/conomi-resumen.webp';
+import { person } from '../data/cv';
+const mailto = `mailto:${person.email}?subject=${encodeURIComponent('Engineering role for Daniel Mora')}`;
 ---
-<section id="about" class="scroll-mt-16 pt-12 lg:pt-0">
-  <h2 class={label}>About</h2>
-  <div data-bio class="mt-6">
-    <p class="enter text-2xl text-soft" style="--delay:120ms">{about.short}</p>
-    <p data-long class="mt-4 hidden text-2xl text-soft">{about.long}</p>
-    <div data-len-group hidden class="mt-4 inline-flex gap-1 rounded-full bg-panel p-1 text-sm" role="group" aria-label="Bio length">
-      <button type="button" data-len="short" aria-pressed="true" class="rounded-full px-3 py-1 text-muted aria-pressed:bg-bg aria-pressed:font-semibold aria-pressed:text-fg">Short</button>
-      <button type="button" data-len="long" aria-pressed="false" class="rounded-full px-3 py-1 text-muted aria-pressed:bg-bg aria-pressed:font-semibold aria-pressed:text-fg">Long</button>
-    </div>
+<section id="about" class="hero wrap" aria-labelledby="hero-title">
+  <div class="hero-top"><p>{person.city}, Mexico <span class="muted">· UTC−6</span></p><p class="hiring-availability">Available for a new role</p></div>
+  <h1 id="hero-title">Daniel Mora<span class="name-period">.</span></h1>
+  <div class="hero-bottom">
+    <div class="hero-intro"><h2>Senior full stack.<br />Web, mobile & AI.</h2><p>TypeScript, Python and React. AI platforms and mobile products. Four years leading a team of about 15.</p><div class="hero-actions"><a class="button" href={mailto}>Email me about a role</a><a class="resume-link" href="/resume/">View résumé<span aria-hidden="true"> →</span></a></div><a class="hero-email" href={`mailto:${person.email}`}>{person.email}</a></div>
+    <aside class="hero-feature" aria-label="Featured public project"><a href="/work/conomi/" class="hero-product-link"><div class="hero-product-image"><img src={screen.src} width={screen.width} height={screen.height} alt="Preview of Conomi, Daniel’s released personal finance app." loading="eager" /></div><div class="hero-product-caption"><span>Conomi · iOS & Android</span><strong>Explore the case study <span aria-hidden="true">→</span></strong></div></a></aside>
   </div>
+  <dl class="hiring-strip"><div><dt>Looking for</dt><dd>Senior full stack / Tech Lead</dd></div><div><dt>Work setup</dt><dd>Remote or relocation · UTC−6</dd></div><div><dt>English</dt><dd>B2 · US team experience</dd></div></dl>
 </section>
-
-<script>
-  // Two lines for the recruiter, one more paragraph for the hiring manager
-  const long = document.querySelector<HTMLElement>('[data-long]')!;
-  const btns = [...document.querySelectorAll<HTMLButtonElement>('[data-len]')];
-  document.querySelector<HTMLElement>('[data-len-group]')!.hidden = false;
-  btns.forEach((b) => b.addEventListener('click', () => {
-    long.classList.toggle('hidden', b.dataset.len !== 'long');
-    btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-  }));
-</script>

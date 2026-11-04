@@ -1,29 +1,15 @@
 ---
 import { jobs } from '../data/cv';
-const label = 'flex items-baseline gap-3 border-b border-line pb-3 text-sm font-bold';
+const ids = ['experience-heydonto-ai', 'experience-algotive', 'experience-jalisco', 'experience-guadalajara'];
 ---
-<section id="experience" class="scroll-mt-16 pt-16">
-  <h2 class={label}>Experience <span class="font-sans font-normal text-muted">11 years</span></h2>
-  <ol>
-    {jobs.map((j, i) => (<>
-      <li class="reveal grid gap-x-6 gap-y-2 border-b border-line py-6 sm:grid-cols-[3.5rem_1fr]">
-        <span class="font-display text-sm text-muted">{`{${String(i + 1).padStart(2, '0')}}`}</span>
-        <div>
-          <h3 class="text-2xl font-bold tracking-tight">{j.title}</h3>
-          <p class="mt-1 text-sm text-muted">{j.company} · {j.place} · {j.from} – {j.to}</p>
-          <dl class="mt-4 grid grid-cols-[4.5rem_1fr] items-baseline gap-x-4 gap-y-2 text-base">
-            <dt class="text-sm text-muted">Scope</dt><dd class="text-soft">{j.scope}</dd>
-            {j.proof && <><dt class="text-sm text-muted">Proof</dt><dd>{j.proof}</dd></>}
-            {j.stack && <><dt class="text-sm text-muted">Stack</dt><dd class="text-soft">{j.stack}</dd></>}
-          </dl>
-        </div>
-      </li>
-      {j.gapAfter && (
-        <li class="reveal grid gap-x-6 border-b border-line py-4 text-sm text-muted sm:grid-cols-[3.5rem_1fr]">
-          <span aria-hidden="true">·</span>
-          <p>{j.gapAfter.from} – {j.gapAfter.to} · {j.gapAfter.what}</p>
-        </li>
-      )}
-    </>))}
-  </ol>
+<section id="experience" class="experience wrap section-space" aria-labelledby="experience-title">
+  <div class="section-heading"><h2 id="experience-title">Experience</h2><p>2014 - Present</p></div>
+  <ol class="job-list" data-cv-group="Experience">{jobs.map((j, i) => (<>
+    <li id={ids[i]} class:list={['job', { 'job-current': i === 0 }]} data-cv-entry>
+      <div class="job-date"><p>{j.period ?? `${j.from} - ${j.to}`}</p>{i === 0 && <span class="current-label">Current role</span>}</div>
+      <div class="job-content"><p class="job-company">{j.company}</p><h3><a class="entry-trigger" data-entry-select href={`#${ids[i]}`}>{j.title}<span class="entry-permalink" aria-hidden="true"></span></a></h3><p class="job-scope">{j.scope}</p>{j.proof && <p class="job-proof">{j.proof}</p>}{j.stack && <p class="job-stack">{j.stack}</p>}{j.details && <details class="entry-details"><summary>Read role details<span aria-hidden="true">+</span></summary><div class="detail-content">{j.details.map(d => <div><h4>{d.label}</h4><p>{d.text}</p></div>)}</div></details>}</div>
+      <span class="job-index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+    </li>
+    {j.gapAfter && <li class="career-note">{j.gapAfter.from} - {j.gapAfter.to} · {j.gapAfter.what}</li>}
+  </>))}</ol>
 </section>
