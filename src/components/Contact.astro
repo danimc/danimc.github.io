@@ -1,5 +1,5 @@
 ---
-import { faq, person } from '../data/cv';
+import { faq, person, mailto } from '../data/cv';
 ---
 <section class="faq wrap section-space" aria-labelledby="faq-title"><h2 id="faq-title">A few things you might ask.</h2><div>{faq.map(f => <details><summary>{f.q}<span aria-hidden="true">+</span></summary><p>{f.a}{f.q === 'Can I see code?' && <><br /><a class="inline-case-link" href="/work/conomi/">Explore Conomi</a></>}</p></details>)}</div></section>
-<section id="contact" class="contact-section" aria-labelledby="contact-title"><div class="wrap"><p class="availability"><span aria-hidden="true"></span> Open to remote & relocation</p><h2 id="contact-title">Hiring a senior engineer<br />or a tech lead?</h2><div class="contact-bottom"><a class="contact-email" href={`mailto:${person.email}?subject=Role%20for%20Daniel%20Mora`}>{person.email}<span aria-hidden="true">↗</span></a><div><a href={person.links.linkedin} rel="me">LinkedIn ↗</a><a href={person.links.github} rel="me">GitHub ↗</a></div></div></div></section>
+<section id="contact" class="contact-section" aria-labelledby="contact-title"><div class="wrap"><p class="availability"><span aria-hidden="true"></span> Open to remote & relocation</p><h2 id="contact-title">Hiring a senior engineer<br />or a tech lead?</h2><div class="contact-bottom"><a class="contact-email" href={mailto}>{person.email}<span aria-hidden="true">↗</span></a><div><a href={person.links.linkedin} rel="me">LinkedIn ↗</a><a href={person.links.github} rel="me">GitHub ↗</a></div></div></div></section>

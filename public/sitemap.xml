@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ponytail: three pages, hand written; switch to @astrojs/sitemap if pages multiply -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://danimc.is-a.dev/</loc></url>
+  <url><loc>https://danimc.is-a.dev/work/conomi/</loc></url>
+  <url><loc>https://danimc.is-a.dev/resume/</loc></url>
+</urlset>

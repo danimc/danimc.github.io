@@ -1,14 +1,13 @@
 ---
 import screen from '../assets/conomi-resumen.webp';
-import { person } from '../data/cv';
-const mailto = `mailto:${person.email}?subject=${encodeURIComponent('Engineering role for Daniel Mora')}`;
+import { person, mailto } from '../data/cv';
 ---
 <section id="about" class="hero wrap" aria-labelledby="hero-title">
-  <div class="hero-top"><p>{person.city}, Mexico <span class="muted">· UTC−6</span></p><p class="hiring-availability">Available for a new role</p></div>
+  <div class="hero-top"><p>{person.city}, Mexico <span class="muted">· {person.hours}</span></p><p class="hiring-availability">Available for a new role</p></div>
   <h1 id="hero-title">Daniel Mora<span class="name-period">.</span></h1>
   <div class="hero-bottom">
-    <div class="hero-intro"><h2>Senior full stack.<br />Web, mobile & AI.</h2><p>TypeScript, Python and React. AI platforms and mobile products. Four years leading a team of about 15.</p><div class="hero-actions"><a class="button" href={mailto}>Email me about a role</a><a class="resume-link" href="/resume/">View résumé<span aria-hidden="true"> →</span></a></div><a class="hero-email" href={`mailto:${person.email}`}>{person.email}</a></div>
+    <div class="hero-intro"><h2>Senior full stack<br />& tech lead.</h2><p>TypeScript, Python and React across web, mobile and AI platforms. 11+ years in production, four of them leading a team of about 15.</p><div class="hero-actions"><a class="button" href={mailto}>Email me about a role</a><a class="resume-link" href="/resume/">View résumé<span aria-hidden="true"> →</span></a></div><a class="hero-email" href={`mailto:${person.email}`}>{person.email}</a></div>
     <aside class="hero-feature" aria-label="Featured public project"><a href="/work/conomi/" class="hero-product-link"><div class="hero-product-image"><img src={screen.src} width={screen.width} height={screen.height} alt="Preview of Conomi, Daniel’s released personal finance app." loading="eager" /></div><div class="hero-product-caption"><span>Conomi · iOS & Android</span><strong>Explore the case study <span aria-hidden="true">→</span></strong></div></a></aside>
   </div>
-  <dl class="hiring-strip"><div><dt>Looking for</dt><dd>Senior full stack / Tech Lead</dd></div><div><dt>Work setup</dt><dd>Remote or relocation · UTC−6</dd></div><div><dt>English</dt><dd>B2 · US team experience</dd></div></dl>
+  <dl class="hiring-strip"><div><dt>Looking for</dt><dd>Senior full stack / Tech Lead</dd></div><div><dt>Work setup</dt><dd>Remote or relocation · UTC−6</dd></div><div><dt>Terms</dt><dd>{person.terms}</dd></div><div><dt>English</dt><dd>B2 · US team experience</dd></div></dl>
 </section>

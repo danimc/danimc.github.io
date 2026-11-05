@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "pdf": "\"${CHROME:-$HOME/Library/Caches/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-mac-arm64/chrome-headless-shell}\" --no-pdf-header-footer --print-to-pdf=public/Daniel_Mora_Resume.pdf http://localhost:4321/resume/"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
